@@ -1,0 +1,739 @@
+grammar arden.xtext.ArdenSyntax hidden(WS, ML_COMMENT, SL_COMMENT)
+
+generate ardenSyntax "http://www.xtext.arden/ArdenSyntax"
+
+/* 
+ This xText Grammar is based on the EGADSS Arden Compiler Grammar 
+ which is licensed under the Terms of the GNU General Public License
+ Version 2 or above. 
+
+ Copyright (C) 2004  University of British Columbia
+ Copyright (C) 2011  Hannes Flicka
+
+ This program is distributed in the hope that it will
+ be useful,  but WITHOUT ANY WARRANTY; without even
+ the implied warranty of  MERCHANTABILITY or FITNESS
+ FOR A PARTICULAR PURPOSE. See the  GNU General Public
+ License for more details.
+
+ You should have received a copy of the GNU General
+ Public License  along with this program; if not,
+ write to the Free Software  Foundation, Inc.,
+ 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA 
+*/
+
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
+/* mlms included by program */
+mlms:
+      (P_mlms+=P_mlm)+;
+     
+     
+/************ terminals: ************/
+     
+// white space
+terminal WS: (' '|'\t'|'\r'|'\n')+;
+
+// comments
+terminal ML_COMMENT : '/*' -> '*/';
+terminal SL_COMMENT : '//' !('\n'|'\r')* ('\r'? '\n')?;
+
+// some basic fragments
+terminal fragment ct : 'T';
+terminal fragment digit: '0'..'9';
+terminal fragment letter: 'a'..'z' | 'A'..'Z';
+terminal fragment us: '_';
+
+//terminal data_mapping: 'data_mapping';
+
+// numbers
+terminal fragment INT: ('0'..'9')+;
+terminal exponent: ('e' | 'E') ('+' | '-')? INT;
+terminal number_literal : (INT ('.' INT?)? exponent?) | ('.' INT exponent?);
+
+// id & mlmname
+terminal ID : letter (letter | us | digit)*;
+terminal trm_mlmname_text : letter (letter | digit | us | '-' | '.')*;
+
+// strings
+terminal fragment simplestring: !'"';
+terminal string_literal : '"' simplestring* ('""' simplestring+)* '"';
+
+// iso date/datetime
+terminal fragment fractional_seconds: ('.' INT)?;
+terminal fragment time_zone: ('Z' | 'z' 
+    | '+' digit digit ':' digit digit 
+    | '-' digit digit ':' digit digit)?
+;
+terminal iso_date :  digit digit digit digit '-' digit digit '-' digit digit;
+terminal iso_date_time :  iso_date ct digit digit ':' digit digit ':' digit digit fractional_seconds time_zone;
+
+// from bracket to bracket
+terminal data_mapping :  '{' -> '}';
+
+mlmname_text: {mlmname_text}(id=ID | trm_mlmname_text=trm_mlmname_text);
+terminal term :  "'" -> "'";
+
+
+/******** parser rules: ***********/
+P_mlm:
+                maintainance_category=maintenance_category
+                library_category=library_category
+                knowledge_category=knowledge_category
+                'end:';
+                
+maintenance_category:
+                'maintenance:' maintainance_body=maintenance_body;
+
+maintenance_body :
+                title_slot=title_slot
+                mlmname_slot=mlmname_slot
+                arden_version_slot=arden_version_slot
+                version_slot=version_slot
+                institution_slot=institution_slot
+                author_slot=author_slot
+                specialist_slot=specialist_slot
+                date_slot=date_slot
+                validation_slot=validation_slot;
+
+library_category :
+                'library:' library_body=library_body;
+
+library_body :
+                purpose_slot=purpose_slot
+                explanation_slot=explanation_slot
+                keywords_slot=keywords_slot
+                citations_slot=citations_slot?
+                links_slot=links_slot?;
+
+knowledge_category :
+                'knowledge:' knowledge_body=knowledge_body;
+
+knowledge_body :
+                type_slot=type_slot
+                data_slot=data_slot
+                priority_slot=priority_slot
+                evoke_slot=evoke_slot
+                logic_slot=logic_slot
+                action_slot=action_slot
+                urgency_slot=urgency_slot;
+                
+
+/****** slots ******/
+/****** maintenance: slots ******/
+
+terminal title_slot :
+                'title:' -> ';;';
+
+mlmname_slot :
+      'mlmname:' mlmname_text=mlmname_text ';;'
+    | 'filename:' mlmname_text=mlmname_text ';;';
+
+
+arden_version_slot :
+	{arden_version_slot}
+      ('arden:' 'version' 
+      	version_number=number_literal 
+      	';;'
+      )?;  
+    
+version_slot :
+                'version:' vnum=number_literal ';;';
+
+terminal institution_slot :
+                'institution:' -> ';;';
+
+terminal author_slot :
+                'author:' -> ';;';
+
+
+terminal specialist_slot :
+                'specialist:' -> ';;';
+
+
+date_slot :
+                'date:' mlm_date=mlm_date ';;';
+
+mlm_date :
+      iso_date
+    | iso_date_time;
+
+validation_slot :
+                'validation:'
+				      vcode=validation_code
+    			';;';
+
+validation_code :
+      'production'
+    | 'research'
+    | 'testing'
+    | 'expired';
+
+/****** library: slots ******/
+
+terminal purpose_slot: 'purpose:' -> ';;';
+terminal explanation_slot: 'explanation:' -> ';;';
+terminal keywords_slot: 'keywords:' -> ';;';
+terminal citations_slot: 'citations:' -> ';;';
+terminal links_slot: 'links:' -> ';;';
+
+
+/****** knowledge: slots ******/
+
+type_slot :
+                'type:'
+                	('data_driven'
+    				| 'data-driven') 
+                ';;';
+
+type_code :
+      ('data_driven'
+    | 'data-driven');
+
+data_slot :
+                'data:' data_block=data_block ';;';
+
+priority_slot :
+      {priority_slot}
+    ('priority:' priority=number_literal ';;')?;
+
+evoke_slot :
+                'evoke:' evoke_block=evoke_block ';;';
+
+logic_slot :
+                'logic:' logic_block=logic_block ';;';
+
+action_slot :
+                'action:' action_block=action_block ';;';
+
+urgency_slot :
+      {urgency_slot}
+    ('urgency:' urgency=urgency_val ';;')?;
+
+urgency_val :
+      number_literal
+    | ID;
+    
+
+logic_block :
+      logic_statement=logic_statement (';' logic_block=logic_block)?;
+
+logic_statement :
+      {logic_statement}
+     (logic_assignment=logic_assignment
+    | 'if' logic_if_then_else2=logic_if_then_else2
+    | 'for' id=ID 'in' for_expr=expr 'do' logic_block=logic_block ';' 'enddo'
+    | 'while' while_expr=expr 'do' logic_block=logic_block ';' 'enddo'
+    | 'conclude' conclude_expr=expr)?;
+
+logic_if_then_else2 :
+    if_expr=expr 'then' logic_block=logic_block ';' logic_elseif=logic_elseif;
+
+logic_elseif :
+      {logic_elseif} 'endif'
+    | 'else' logic_block=logic_block ';' 'endif'
+    | 'elseif' logic_if_then_else2=logic_if_then_else2;
+
+logic_assignment :
+      id_becomes=identifier_becomes (assignment_expr=expr | assignment_call_phrase=call_phrase | assignment_new=new_object_phrase)
+    | time_becomes=time_becomes assignment_expr=expr 
+    | '(' list=data_var_list ')' ':=' assignment_call_phrase=call_phrase
+    | 'let' '(' list=data_var_list ')' 'be' assignment_call_phrase=call_phrase;
+
+identifier_becomes :
+      id_or_obj_ref=identifier_or_object_ref ':='
+    | 'let' id=ID 'be'
+    | {identifier_becomes} 'now' ':=';
+
+identifier_or_object_ref :
+      id=ID ('.' id_or_obj_ref=identifier_or_object_ref)?;
+
+time_becomes :
+      'time' 'of'? id=ID ':='
+    | 'let' 'time' 'of'? id=ID 'be';
+
+call_phrase :
+      'call' id=ID ('with' with_expr=expr)?;
+    
+    
+/****** expressions ******/
+
+expr :
+      expr_sort=expr_sort (',' expr_sort_b+=expr_sort)*
+    | ',' expr_sort=expr_sort (',' expr_sort_b+=expr_sort)*;
+    
+
+expr_sort :
+      expr_where=expr_where ('merge' expr_sort=expr_sort)?
+    | 'sort' 'data'? expr_sort=expr_sort;
+    
+
+expr_where :
+      expr_range=expr_range ('where' expr_range_where=expr_range)?;
+    
+
+expr_range :
+      expr_or=expr_or ('seqto' expr_seqto=expr_or)?;
+
+
+expr_or :
+      expr_and=expr_and ('or' expr_or=expr_or)?;
+    
+    
+expr_and :
+      expr_not=expr_not ('and' expr_and=expr_and)?;
+    
+
+expr_not :
+      'not' expr_comparison=expr_comparison
+    | expr_comparison=expr_comparison;
+
+    
+expr_comparison :
+      expr_find_string=expr_find_string
+    | expr_string=expr_string 
+      (simple_comp_op right_string=expr_string
+      | P_is op=main_comp_op
+      | P_is 'not' op=main_comp_op
+      | op=in_comp_op
+      | 'not' op=in_comp_op
+      | P_occur temp_op=temporal_comp_op
+      | P_occur 'not' temp_op=temporal_comp_op
+      | 'matches' 'pattern' pattern_string=expr_string)?;
+    
+expr_find_string :
+      'find' substring=expr_string 'in'? 'string' fullstring=expr_string start=string_search_start?;
+    
+string_search_start :
+    'starting' 'at' expr_plus=expr_plus;
+
+
+expr_string:
+    expr_plus=expr_plus 
+    	('||' expr_plus_b+=expr_plus 
+    		| 'formatted' 'with' str_literal+=string_literal
+    	)*
+    | 'trim' opt=trim_option? expr_plus=expr_plus 
+    	('||' expr_plus_b+=expr_plus | 
+    		'formatted' 'with' str_literal+=string_literal
+    	)*
+    | 'substring' charcount=expr_plus 'characters' start=substring_start? 'from' expr_plus=expr_plus 
+    	('||' expr_plus_b+=expr_plus | 
+    		'formatted' 'with' str_literal+=string_literal
+    	)*;
+    
+trim_option :
+      'left'
+    | 'right';
+
+substring_start :
+    'starting' 'at' start=expr_factor;
+  
+
+expr_plus :
+      expr_times=expr_times 
+      		('+' expr_times_b+=expr_times
+    		| '-' expr_times_b+=expr_times)*
+    | '+' expr_times=expr_times 
+      		('+' expr_times_b+=expr_times
+    		| '-' expr_times_b+=expr_times)*
+    | '-' expr_times=expr_times 
+      		('+' expr_times_b+=expr_times
+    		| '-' expr_times_b+=expr_times)*;
+    
+    
+expr_times :
+      expr_power=expr_power 
+      		('*' expr_power_b+=expr_power
+    			| '/' expr_power_b+=expr_power)*;
+    
+    
+expr_power :
+    base=expr_function ((=> '**' exp=expr_function) | 
+    	(op1=duration_op 
+    		((=> ('before'|'after'|'from') expr_function=expr_function (=> op2=duration_op 'ago'?)?)
+    			| 'ago'?
+    		)
+    	)?
+    );
+    
+
+expr_function :
+	  expr_factor=expr_factor (=> 'as' as_func_op=as_func_op)?
+    | => op=of_func_op 'of'? expr_function=expr_function
+    |   => ( from_of_func_op=from_of_func_op 
+    	| index_of=index_from_of_func_op )
+    	('of'? expr_function=expr_function 
+    		| => expr_factor=expr_factor 'from' expr_function=expr_function
+    	)
+    |   =>( from_func_op=from_func_op 
+    	| index=index_from_func_op
+      ) expr_factor=expr_factor => 'from' expr_function=expr_function     
+    | => 'attribute' expr_factor=expr_factor 'from' expr_function=expr_function;
+            
+            
+expr_factor :
+    atom=expr_factor_atom 
+    ((=> '.' id+=ID)* 
+        | (=> '[' expr=expr ']' ('.' id+=ID)*)
+    );
+          
+
+expr_factor_atom :
+      id=ID
+    | num=number_literal
+    | str=string_literal
+    | time=time_value
+    | bool=boolean_value
+    | {expr_factor_atom}'null'
+    | it=P_it
+                  /* Value is NULL outside of a where   */
+                  /* clause and may be flagged as an    */
+                  /* error in some implementations.     */
+    | {expr_factor_atom} => '(' (expr=expr)? ')';
+    
+    
+P_it :
+      'it'
+    | 'they';
+    
+P_is :
+      'is'
+    | 'are'
+    | 'was'
+    | 'were';
+
+P_occur :
+      'occur'
+    | 'occurs'
+    | 'occurred';
+    
+    
+simple_comp_op :
+      '='
+    | 'eq'
+    | '<'
+    | 'lt'
+    | '>'
+    | 'gt'
+    | '<='
+    | 'le'
+    | '>='
+    | 'ge'
+    | '<>'
+    | 'ne';
+
+main_comp_op :
+      temporal_comp_op=temporal_comp_op
+    | unary_comp_op=unary_comp_op
+    | binary_comp_op=binary_comp_op str=expr_string
+    | in_comp_op=in_comp_op;
+    
+
+temporal_comp_op :
+      'within'
+       		( 'past' past=expr_string
+      		| 'same' 'day' 'as' day=expr_string 
+      		| within=expr_string ('preceding' preceding=expr_string
+    			| 'following' following=expr_string
+    			| 'surrounding' surrounding=expr_string
+    			| 'to' to=expr_string))
+    | 'before' before=expr_string
+    | 'after' after=expr_string
+    | 'equal' equal=expr_string
+    | 'at' at=expr_string;
+
+unary_comp_op :
+	{unary_comp_op}(
+      'present'
+    | 'null'
+    | 'boolean'
+    | 'number'
+    | 'time'
+    | 'duration'
+    | 'string'
+    | 'list'
+    | 'object')
+    | id=ID;
+
+binary_comp_op:
+      'less' 'than'
+    | 'greater' 'than'
+    | 'greater' 'than' 'or' 'equal'
+    | 'less' 'than' 'or' 'equal';
+
+
+in_comp_op :
+                'in' expr_string=expr_string;
+
+
+of_func_op :
+      of_read_func_op=of_read_func_op
+    | of_noread_func_op=of_noread_func_op;
+
+of_read_func_op:
+      'average'
+    | 'avg'
+    | 'count'
+    | 'exist'
+    | 'exists'
+    | 'sum'
+    | 'median';
+
+of_noread_func_op :
+      'any'
+    | 'all'
+    | 'no'
+    | 'slope'
+    | 'stddev'
+    | 'variance'
+    | 'increase'
+    | 'percent' 'increase'
+    | '%' 'increase'
+    | 'decrease'
+    | 'percent' 'decrease'
+    | '%' 'decrease'
+    | 'interval'
+    | 'time'
+    | 'arccos'
+    | 'arcsin'
+    | 'arctan'
+    | 'cosine'
+    | 'cos'
+    | 'sine'
+    | 'sin'
+    | 'tangent'
+    | 'tan'
+    | 'exp'
+    | 'floor'
+    | 'int'
+    | 'round'
+    | 'ceiling'
+    | 'truncate'
+    | 'log'
+    | 'log10'
+    | 'abs'
+    | 'sqrt'
+    | 'extract' 'year'
+    | 'extract' 'month'
+    | 'extract' 'day'
+    | 'extract' 'hour'
+    | 'extract' 'minute'
+    | 'extract' 'second'
+    | 'string'
+    | 'extract' 'characters'
+    | 'reverse'
+    | 'length'
+    | 'uppercase'
+    | 'lowercase'
+    | 'clone'
+    | 'extract' 'attribute' 'names';
+    
+
+from_func_op :
+    'nearest';
+
+index_from_func_op :
+    'index' 'nearest';
+
+from_of_func_op :
+      'minimum'
+    | 'min'
+    | 'maximum'
+    | 'max'
+    | 'last'
+    | 'first'
+    | 'earliest'
+    | 'latest';
+
+/* must be careful as reverse 5 from x does */
+/* not make sense                           */
+index_from_of_func_op :
+      'index' 
+      (	  'minimum'
+    	| 'min'
+    	| 'maximum'
+    	| 'max'
+    	| 'earliest'
+    	| 'latest');
+    
+
+as_func_op :
+    'number';
+
+duration_op :
+      'year'
+    | 'years'
+    | 'month'
+    | 'months'
+    | 'week'
+    | 'weeks'
+    | 'day'
+    | 'days'
+    | 'hour'
+    | 'hours'
+    | 'minute'
+    | 'minutes'
+    | 'second'
+    | 'seconds';
+    
+    
+/****** factors ******/
+boolean_value :
+      'true'
+    | 'false';
+
+time_value :
+      'now'
+    | iso_date_time
+    | iso_date
+    | 'eventtime'
+    | 'triggertime'
+    | 'currenttime';
+    
+
+
+/****** data block ******/
+data_block :
+    data_statement=data_statement (';' data_statement_b+=data_statement)*;
+    
+data_statement :
+    {data_statement}
+    (assignment=data_assignment
+    | 'if' data_if_then_else2=data_if_then_else2
+    | 'for' id=ID 'in' expr=expr 'do' data_block=data_block ';' 'enddo'
+    | 'while' expr=expr 'do' data_block=data_block ';' 'enddo')?;
+
+data_if_then_else2 :
+    expr=expr 'then' data_block=data_block ';' else=data_elseif;
+
+    
+data_elseif :
+      {data_elseif} 'endif'
+    | 'else' data_block=data_block ';' 'endif'
+    | 'elseif' data_if_then_else2=data_if_then_else2;
+
+
+data_assignment :
+      becomes=identifier_becomes data_assign_phrase=data_assign_phrase
+    | becomes=time_becomes expr=expr
+    | =>'(' list=data_var_list ')' ':=' ('read' read_phrase=read_phrase | assign_arg='argument')
+    | =>'let' '(' list=data_var_list ')' 'be' ('read' read_phrase=read_phrase | assign_arg='argument');
+    
+    
+data_var_list :
+      id=ID (',' list=data_var_list)?;
+
+data_assign_phrase :
+	  'read' ('as' id=ID)? read_phrase=read_phrase
+    | 'mlm' term=term ('from' 'institution' str=string_literal)?
+    | {data_assign_phrase} 'mlm' 'mlm_self'
+    | 'interface' map=mapping_factor
+    | 'event' map=mapping_factor
+    | 'message' (
+    	 map=mapping_factor
+    	| 'as' id=ID map=mapping_factor?
+    )
+    | 'destination' (
+    	 map=mapping_factor
+    	| 'as' id=ID map=mapping_factor?
+    )
+    | obj='object' '[' obj_attr=object_attribute_list ']'
+    | {data_assign_phrase} 'argument'
+    | call_phrase=call_phrase
+    | new_phrase=new_object_phrase
+    | expr=expr;
+    
+
+read_phrase :
+      (of_read_func_op 'of'?)? read_where=read_where
+    | => from_of_func_op 
+         (=> ('of'? read_where=read_where) 
+        | expr_factor=expr_factor 'from' read_where=read_where
+    );
+
+read_where :
+      map=mapping_factor ('where' P_it P_occur 'not'? temp_op=temporal_comp_op)?
+    | => '(' read_where=read_where ')';
+
+mapping_factor:
+	{mapping_factor}
+    mapping=data_mapping;
+
+object_attribute_list :
+      id=ID
+    | id=ID ',' obj_attr=object_attribute_list;
+
+new_object_phrase :
+      'new' id=ID ('with' expr=expr)?;
+    
+    
+/****** evoke: block ******/
+evoke_block :
+      evoke_statement=evoke_statement (';' evoke_statement_b+=evoke_statement)*; 
+
+evoke_statement :
+    {evoke_statement}
+    (event_or=event_or
+    | evoke_time=evoke_time
+    | qualified_evoke_cycle=qualified_evoke_cycle
+    | 'call')?; /* deprecated -- kept for backward compatibility */
+
+event_list :
+      event_or=event_or (',' event_or_b+=event_or)*;
+
+    
+event_or :
+    event_any=event_any ('or' event_any_b+=event_any)*;
+    
+event_any :
+    'any' 'of'? (
+    	'(' list=event_list ')'
+    	|id=ID
+    	)
+    | factor=event_factor;
+
+event_factor :
+      '(' event_or=event_or ')'
+    | id=ID;
+
+
+evoke_time :
+      duration=evoke_duration 'after' time=evoke_time
+    | 'time' 'of'? event=event_any
+    | datetime=iso_date_time
+    | date=iso_date;
+    
+qualified_evoke_cycle :
+    evoke_cycle=simple_evoke_cycle ('until' expr=expr)?;
+
+simple_evoke_cycle :
+                'every' interval=evoke_duration 'for' duration=evoke_duration 'starting' start=evoke_time;
+
+evoke_duration :
+                num=number_literal op=duration_op;
+                
+                
+/****** action: block ******/
+action_block :
+      action_statement+=action_statement (';' action_statement+=action_statement)*;
+    
+action_statement :
+    {action_statement}
+    ('if' action_if_then_else2=action_if_then_else2
+    | 'for' id=ID 'in' expr=expr 'do' action_block=action_block ';' 'enddo'
+    | 'while' expr=expr 'do' action_block=action_block ';' 'enddo'
+    | call_phrase=call_phrase ('delay' expr=expr)?
+    | 'write' expr=expr ('at' id=ID)?
+    | 'return' expr=expr
+    | id_becomes=identifier_becomes (expr=expr | new_obj_phrase=new_object_phrase)
+    | time=time_becomes expr=expr)?;
+
+action_if_then_else2:
+                expr=expr 'then' action_block=action_block ';' action_elseif=action_elseif;
+
+action_elseif:
+    {action_elseif}
+      'endif'
+    | 'else' action_block=action_block ';' 'endif'
+    | 'elseif' action_if_then_else2=action_if_then_else2;
