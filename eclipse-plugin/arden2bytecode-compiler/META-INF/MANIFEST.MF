@@ -12,5 +12,6 @@ Export-Package: arden,
  arden.runtime;uses:="arden",
  arden.runtime.jdbc;uses:="arden,arden.runtime"
 Bundle-ClassPath: jewelcli/,
- bin/
+ bin/,
+ .
 Bundle-ActivationPolicy: lazy
