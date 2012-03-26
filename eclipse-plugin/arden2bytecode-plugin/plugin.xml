@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="xmlProblem"
+         name="XML Problem"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.eclipse.core.resources.problemmarker">
+      </super>
+      <persistent
+            value="true">
+      </persistent>
+   </extension>
+   <extension
+         point="org.eclipse.debug.core.launchConfigurationTypes">
+      <launchConfigurationType
+            delegate="arden2bytecodeeclipseplugin.launchconfig.Arden2ByteCodeLaunchConfiguration"
+            id="Arden2ByteCodeEclipsePlugin.launchMLM"
+            modes="run, debug"
+            name="Launch MLM">
+      </launchConfigurationType>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+      <launchConfigurationTabGroup
+            class="arden2bytecodeeclipseplugin.launchconfig.Arden2ByteCodeLaunchConfigurationTabGroup"
+            id="arden2bytecodeeclipseplugin.launchconfig.Arden2ByteCodeLaunchConfigurationTabGroup"
+            type="Arden2ByteCodeEclipsePlugin.launchMLM">
+         <launchMode
+               description="Debug"
+               perspective="org.eclipse.debug.ui.DebugPerspective"
+               mode="debug">
+         </launchMode>
+         <launchMode
+               description="Run"
+               mode="run">
+         </launchMode>
+      </launchConfigurationTabGroup>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchShortcuts">
+      <shortcut
+            class="arden2bytecodeeclipseplugin.launchconfig.LaunchShortcut"
+            id="Arden2ByteCodeEclipsePlugin.launchShortcut"
+            label="Medical Logic Module"
+            modes="run, debug">
+      </shortcut>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchShortcuts">
+      <shortcut
+            class="arden2bytecodeeclipseplugin.launchconfig.LaunchShortcut"
+            id="Arden2ByteCodeEclipsePlugin.launchShortcut"
+            label="Medical Logic Module"
+            modes="run, debug">
+         <contextualLaunch>
+            <enablement>
+               <with
+                     variable="selection">
+                  <count
+                        value="1">
+                  </count>
+                  <iterate>
+                     <test
+                           property="Arden2ByteCodeEclipsePlugin.launchconfig.isLaunchableMlm">
+                     </test>
+                  </iterate>
+               </with>
+            </enablement></contextualLaunch>
+         <configurationType
+               id="Arden2ByteCodeEclipsePlugin.launchMLM">
+         </configurationType>
+      </shortcut>
+   </extension>
+   <extension
+         point="org.eclipse.core.expressions.propertyTesters">
+      <propertyTester
+            class="arden2bytecodeeclipseplugin.launchconfig.LaunchableTester"
+            id="Arden2ByteCodeEclipsePlugin.launchableMlmPropertyTester"
+            namespace="Arden2ByteCodeEclipsePlugin.launchconfig"
+            properties="isLaunchableMlm"
+            type="org.eclipse.core.runtime.IAdaptable">
+      </propertyTester>
+   </extension>
+
+</plugin>
