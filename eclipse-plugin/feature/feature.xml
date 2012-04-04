@@ -2,7 +2,7 @@
 <feature
       id="ArdenSyntaxEditor"
       label="Arden Syntax Editor"
-      version="1.0.1.qualifier">
+      version="1.0.2.qualifier">
 
    <description url="http://arden2bytecode.sf.net">
       This is an Arden Syntax Editor as an Eclipse Plugin. You can
