@@ -33,8 +33,6 @@ import arden2bytecodeeclipseplugin.Activator;
 
 public class Arden2ByteCodeLaunchConfiguration extends LaunchConfigurationDelegate {
 
-	public final static String MLM_EXTENSION = "mlm"; //$NON-NLS-1$
-	
 	private String[] computeClasspath(ILaunchConfiguration config) throws CoreException {
 		IRuntimeClasspathEntry[] entries = JavaRuntime
 				.computeUnresolvedRuntimeClasspath(config);

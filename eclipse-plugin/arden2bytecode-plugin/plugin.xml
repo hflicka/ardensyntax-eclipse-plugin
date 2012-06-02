@@ -3,23 +3,13 @@
 <plugin>
 
    <extension
-         id="xmlProblem"
-         name="XML Problem"
-         point="org.eclipse.core.resources.markers">
-      <super
-            type="org.eclipse.core.resources.problemmarker">
-      </super>
-      <persistent
-            value="true">
-      </persistent>
-   </extension>
-   <extension
          point="org.eclipse.debug.core.launchConfigurationTypes">
       <launchConfigurationType
             delegate="arden2bytecodeeclipseplugin.launchconfig.Arden2ByteCodeLaunchConfiguration"
-            id="Arden2ByteCodeEclipsePlugin.launchMLM"
+            id="arden2bytecodeeclipseplugin.launchMLM"
             modes="run, debug"
-            name="Launch MLM">
+            name="Launch MLM"
+            sourceLocatorId="arden2bytecodeeclipseplugin.MlmSourceLocator">
       </launchConfigurationType>
    </extension>
    <extension
@@ -27,7 +17,7 @@
       <launchConfigurationTabGroup
             class="arden2bytecodeeclipseplugin.launchconfig.Arden2ByteCodeLaunchConfigurationTabGroup"
             id="arden2bytecodeeclipseplugin.launchconfig.Arden2ByteCodeLaunchConfigurationTabGroup"
-            type="Arden2ByteCodeEclipsePlugin.launchMLM">
+            type="arden2bytecodeeclipseplugin.launchMLM">
          <launchMode
                description="Debug"
                perspective="org.eclipse.debug.ui.DebugPerspective"
@@ -43,16 +33,7 @@
          point="org.eclipse.debug.ui.launchShortcuts">
       <shortcut
             class="arden2bytecodeeclipseplugin.launchconfig.LaunchShortcut"
-            id="Arden2ByteCodeEclipsePlugin.launchShortcut"
-            label="Medical Logic Module"
-            modes="run, debug">
-      </shortcut>
-   </extension>
-   <extension
-         point="org.eclipse.debug.ui.launchShortcuts">
-      <shortcut
-            class="arden2bytecodeeclipseplugin.launchconfig.LaunchShortcut"
-            id="Arden2ByteCodeEclipsePlugin.launchShortcut"
+            id="arden2bytecodeeclipseplugin.launchShortcut"
             label="Medical Logic Module"
             modes="run, debug">
          <contextualLaunch>
@@ -64,13 +45,13 @@
                   </count>
                   <iterate>
                      <test
-                           property="Arden2ByteCodeEclipsePlugin.launchconfig.isLaunchableMlm">
+                           property="arden2bytecodeeclipseplugin.launchconfig.isLaunchableMlm">
                      </test>
                   </iterate>
                </with>
             </enablement></contextualLaunch>
          <configurationType
-               id="Arden2ByteCodeEclipsePlugin.launchMLM">
+               id="arden2bytecodeeclipseplugin.launchMLM">
          </configurationType>
       </shortcut>
    </extension>
@@ -78,11 +59,47 @@
          point="org.eclipse.core.expressions.propertyTesters">
       <propertyTester
             class="arden2bytecodeeclipseplugin.launchconfig.LaunchableTester"
-            id="Arden2ByteCodeEclipsePlugin.launchableMlmPropertyTester"
-            namespace="Arden2ByteCodeEclipsePlugin.launchconfig"
+            id="arden2bytecodeeclipseplugin.launchableMlmPropertyTester"
+            namespace="arden2bytecodeeclipseplugin.launchconfig"
             properties="isLaunchableMlm"
             type="org.eclipse.core.runtime.IAdaptable">
       </propertyTester>
+   </extension>
+   <extension
+         point="org.eclipse.debug.core.sourceLocators">
+      <sourceLocator
+            class="arden2bytecodeeclipseplugin.SourceLocator"
+            id="arden2bytecodeeclipseplugin.MlmSourceLocator"
+            name="MLM Source Locator">
+      </sourceLocator>
+   </extension>
+   <extension
+         point="org.eclipse.debug.core.breakpoints">
+      <breakpoint
+            class="arden2bytecodeeclipseplugin.ArdenSyntaxLineBreakpoint"
+            id="arden2bytecodeeclipseplugin.lineBreakpoint"
+            markerType="arden2bytecodeeclipseplugin.lineBreakpoint.marker">
+      </breakpoint>
+   </extension>
+   <extension
+         id="lineBreakpoint.marker"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.eclipse.debug.core.lineBreakpointMarker">
+      </super>
+      <persistent
+            value="true">
+      </persistent>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.adapters">
+      <factory
+            adaptableType="org.eclipse.ui.texteditor.ITextEditor"
+            class="arden2bytecodeeclipseplugin.BreakpointAdapterFactory">
+         <adapter
+               type="org.eclipse.debug.ui.actions.IToggleBreakpointsTarget">
+         </adapter>
+      </factory>
    </extension>
 
 </plugin>

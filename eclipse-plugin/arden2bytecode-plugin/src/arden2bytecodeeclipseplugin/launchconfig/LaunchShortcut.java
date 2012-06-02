@@ -22,6 +22,8 @@ import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 
+import arden2bytecodeeclipseplugin.Activator;
+
 public class LaunchShortcut implements ILaunchShortcut2 {
 
 	public final static String CONFIG_TYPE = "Arden2ByteCodeEclipsePlugin.launchMLM";
@@ -48,7 +50,7 @@ public class LaunchShortcut implements ILaunchShortcut2 {
 		} else {
 			IFileEditorInput input = (IFileEditorInput) editor.getEditorInput();
 			IFile file = input.getFile();
-			if (file.exists() && Arden2ByteCodeLaunchConfiguration.MLM_EXTENSION.
+			if (file.exists() && Activator.MLM_EXTENSION.
 					equalsIgnoreCase(file.getFileExtension())) {
 				launch(file, mode);
 			}

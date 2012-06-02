@@ -10,10 +10,12 @@ import org.osgi.framework.BundleContext;
 public class Activator extends AbstractUIPlugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "Arden2ByteCodeEclipsePlugin"; //$NON-NLS-1$
+	public static final String PLUGIN_ID = "arden2bytecodeeclipseplugin"; //$NON-NLS-1$
 
 	// The shared instance
 	private static Activator plugin;
+
+	public final static String MLM_EXTENSION = "mlm"; //$NON-NLS-1$
 	
 	/**
 	 * The constructor
