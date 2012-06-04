@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-
    <extension
          point="org.eclipse.debug.core.launchConfigurationTypes">
       <launchConfigurationType
@@ -76,7 +75,7 @@
    <extension
          point="org.eclipse.debug.core.breakpoints">
       <breakpoint
-            class="arden2bytecodeeclipseplugin.ArdenSyntaxLineBreakpoint"
+            class="arden2bytecodeeclipseplugin.breakpoints.ArdenSyntaxLineBreakpoint"
             id="arden2bytecodeeclipseplugin.lineBreakpoint"
             markerType="arden2bytecodeeclipseplugin.lineBreakpoint.marker">
       </breakpoint>
@@ -95,11 +94,33 @@
          point="org.eclipse.core.runtime.adapters">
       <factory
             adaptableType="org.eclipse.ui.texteditor.ITextEditor"
-            class="arden2bytecodeeclipseplugin.BreakpointAdapterFactory">
+            class="arden2bytecodeeclipseplugin.breakpoints.BreakpointAdapterFactory">
          <adapter
                type="org.eclipse.debug.ui.actions.IToggleBreakpointsTarget">
          </adapter>
       </factory>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.toggleBreakpointsTargetFactories">
+      <toggleTargetFactory
+            class="arden2bytecodeeclipseplugin.breakpoints.ToggleBreakpointsTargetFactory"
+            id="arden2bytecodeeclipseplugin.toggleTargetFactory">
+         <enablement>
+            <test
+                  property="arden2bytecodeeclipseplugin.breakpoints.isMlmEditor">
+            </test>
+         </enablement>
+      </toggleTargetFactory>
+   </extension>
+   <extension
+         point="org.eclipse.core.expressions.propertyTesters">
+      <propertyTester
+            class="arden2bytecodeeclipseplugin.breakpoints.MlmEditorTester"
+            id="arden2bytecodeeclipseplugin.isMlmEditorTester"
+            namespace="arden2bytecodeeclipseplugin.breakpoints"
+            properties="isMlmEditor"
+            type="org.eclipse.core.runtime.IAdaptable">
+      </propertyTester>
    </extension>
 
 </plugin>

@@ -1,9 +1,11 @@
-package arden2bytecodeeclipseplugin;
+package arden2bytecodeeclipseplugin.breakpoints;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.debug.ui.actions.IToggleBreakpointsTarget;
 import org.eclipse.ui.texteditor.ITextEditor;
+
+import arden2bytecodeeclipseplugin.Activator;
 
 public class BreakpointAdapterFactory implements IAdapterFactory {
 

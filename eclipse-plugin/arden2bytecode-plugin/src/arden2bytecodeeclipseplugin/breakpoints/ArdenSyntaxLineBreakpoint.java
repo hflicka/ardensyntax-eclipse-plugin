@@ -1,4 +1,4 @@
-package arden2bytecodeeclipseplugin;
+package arden2bytecodeeclipseplugin.breakpoints;
 
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
@@ -9,6 +9,8 @@ import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.model.Breakpoint;
 import org.eclipse.debug.core.model.IBreakpoint;
 import org.eclipse.debug.core.model.LineBreakpoint;
+
+import arden2bytecodeeclipseplugin.Activator;
 
 public class ArdenSyntaxLineBreakpoint extends LineBreakpoint {
 
@@ -33,7 +35,7 @@ public class ArdenSyntaxLineBreakpoint extends LineBreakpoint {
 		};
 		run(getMarkerRule(resource), runnable);
 	}
-
+	
 	@Override
 	public String getModelIdentifier() {
 		return MODELIDENTIFIER;
