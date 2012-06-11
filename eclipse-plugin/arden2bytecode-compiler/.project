@@ -29,7 +29,7 @@
 		<link>
 			<name>src</name>
 			<type>2</type>
-			<location>C:/_dev/arden2bytecode_github/src</location>
+			<locationURI>$%7Barden2bytecode%7D/src</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
