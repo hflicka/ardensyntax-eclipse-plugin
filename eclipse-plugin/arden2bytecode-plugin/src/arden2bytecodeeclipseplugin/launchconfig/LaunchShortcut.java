@@ -26,7 +26,7 @@ import arden2bytecodeeclipseplugin.Activator;
 
 public class LaunchShortcut implements ILaunchShortcut2 {
 
-	public final static String CONFIG_TYPE = "Arden2ByteCodeEclipsePlugin.launchMLM";
+	public final static String CONFIG_TYPE = Activator.PLUGIN_ID + ".launchMLM";
 	
 	@Override
 	public void launch(ISelection selection, String mode) {
