@@ -67,7 +67,7 @@
    <extension
          point="org.eclipse.debug.core.sourceLocators">
       <sourceLocator
-            class="arden2bytecodeeclipseplugin.SourceLocator"
+            class="arden2bytecodeeclipseplugin.debug.SourceLocator"
             id="arden2bytecodeeclipseplugin.MlmSourceLocator"
             name="MLM Source Locator">
       </sourceLocator>

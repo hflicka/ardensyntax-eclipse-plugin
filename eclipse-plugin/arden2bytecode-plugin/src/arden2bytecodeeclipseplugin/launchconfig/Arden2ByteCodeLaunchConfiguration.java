@@ -22,6 +22,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
+import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.core.model.LaunchConfigurationDelegate;
 import org.eclipse.jdt.launching.IRuntimeClasspathEntry;
 import org.eclipse.jdt.launching.IVMInstall;
@@ -51,7 +52,7 @@ public class Arden2ByteCodeLaunchConfiguration extends LaunchConfigurationDelega
 			throw new CoreException(new Status(IStatus.ERROR, 
 					Activator.PLUGIN_ID, 
 					0,
-					"Error locating JAR",
+					"Error locating required JAR",
 					e));
 		}
 		userEntries.add(compilerCp);
@@ -132,7 +133,7 @@ public class Arden2ByteCodeLaunchConfiguration extends LaunchConfigurationDelega
 			monitor.worked(1);
 
 			IVMInstall defaultVM = JavaRuntime.getDefaultVMInstall();
-			IVMRunner runner = defaultVM.getVMRunner(mode);
+			IVMRunner runner = defaultVM.getVMRunner(ILaunchManager.DEBUG_MODE);
 			if (runner != null) {
 				runner.run(vmConfig, launch, monitor);
 			} else {

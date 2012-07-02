@@ -1,4 +1,4 @@
-package arden2bytecodeeclipseplugin;
+package arden2bytecodeeclipseplugin.debug;
 
 import java.io.File;
 
@@ -11,6 +11,7 @@ import org.eclipse.debug.core.model.IStackFrame;
 import org.eclipse.debug.core.sourcelookup.containers.LocalFileStorage;
 import org.eclipse.jdt.debug.core.IJavaStackFrame;
 
+import arden2bytecodeeclipseplugin.Activator;
 import arden2bytecodeeclipseplugin.launchconfig.MainTab;
 
 public class SourceLocator implements IPersistableSourceLocator {
