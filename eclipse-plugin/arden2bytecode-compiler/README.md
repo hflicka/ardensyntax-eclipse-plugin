@@ -1,4 +1,27 @@
-# JewelCli dependency
+# Arden2ByteCode Compiler Eclipse Plugin
+
+This Eclipse plugin bundles the binaries and dependecies of the
+Arden2ByteCode compiler as a bundle suited for the Eclipse
+platform.  
+It is a straightforward adaptation of the original Arden2ByteCode
+binary JAR file.
+
+## Build Instructions
+
+The Eclipse project contained in the directory containing this
+readme links to the root folder of the [Arden2ByteCode source
+code repository](http://github.com/hflicka/arden2bytecode) 
+via the **arden2bytecode** variable.  
+To build this project, first set the **arden2bytecode** variable
+in Window -> Preferences -> General -> Workspace -> Linked Resources
+such that it links to the root folder of the Arden2ByteCode 
+source code.
+
+Having the Arden2ByteCode source code linked as described above 
+and having the JewelCli binary imported as stated below, you 
+should be able to build this plugin with the Eclipse PDE.
+
+### JewelCli dependency
 
 Note that you should place a compiled version of 
 JewelCli (Version 0.6) into the directory jewelcli.
