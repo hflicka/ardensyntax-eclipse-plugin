@@ -1,9 +1,39 @@
 # Arden Syntax Eclipse Editor
 
+## Overview
+
+This repository contains multiple Eclipse plugins which 
+together form the Arden Syntax Eclipse Plugin.
+
+These are:
+
+* An Arden Syntax Editor plugin with syntax highlighting
+  consisting of:
+    * **arden.xtext** - The xText based Arden Syntax parser
+    * **arden.xtext.ui** - The Editor UI plugin using the parser
+      for syntax highlighting
+    * **arden.xtext.tests** - Optional tests which are not
+      included in the final plugin package
+* A plugin named **Arden2ByteCodeCompiler**, bundling the 
+  Arden2ByteCode program JAR to be used as a bundle in the 
+  Eclipse IDE
+* A plugin named **arden2bytecodeeclipseplugin**, containing
+  Classes that make the Run/Debug buttons of Eclipse work
+  with Medical Logic Modules.
+
+Further, there is a feature named **Arden Syntax Editor**
+bundling all of the above plugins and an update site, where
+the feature and all included plugins can be deployed to.  
+The update site is also imported into the website at 
+http://arden2bytecode.sf.net/ such that the plugin can be
+installed into running Eclipse installations via the
+update functionality of Eclipse.
+
 ## Build Instructions
 
-To build this, import all projects into an Eclipse version with 
-xText Plugin, then generate the language artifacts of arden.xtext. 
+To build this bundle of plugins, import all projects into an 
+Eclipse IDE with xText Plugin installed, then generate the 
+language artifacts of arden.xtext. 
 
 For the arden2bytecode-compiler plugin, you need to place a 
 compiled version of JewelCli 0.6 into the root directory of the 

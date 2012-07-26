@@ -3,7 +3,8 @@
 Note that you should place a compiled version of 
 JewelCli (Version 0.6) into the directory jewelcli.
 
-After doing that, the following files should be present:
+After doing that, the following files should be present 
+(relative to the directory containing this readme):
 
 * jewelcli/uk/co/flamingpenguin/jewel/cli/Argument.class
 * jewelcli/uk/co/flamingpenguin/jewel/cli/ArgumentCollection.class
