@@ -14,7 +14,7 @@ code repository](http://github.com/hflicka/arden2bytecode)
 via the **arden2bytecode** variable.  
 To build this project, first set the **arden2bytecode** variable
 in Window -> Preferences -> General -> Workspace -> Linked Resources
-such that it links to the root folder of the Arden2ByteCode 
+such that it points to the root folder of the Arden2ByteCode 
 source code.
 
 Having the Arden2ByteCode source code linked as described above 
