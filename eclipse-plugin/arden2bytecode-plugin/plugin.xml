@@ -57,7 +57,7 @@
    <extension
          point="org.eclipse.core.expressions.propertyTesters">
       <propertyTester
-            class="arden2bytecodeeclipseplugin.launchconfig.LaunchableTester"
+            class="arden2bytecodeeclipseplugin.core.LaunchableTester"
             id="arden2bytecodeeclipseplugin.launchableMlmPropertyTester"
             namespace="arden2bytecodeeclipseplugin.launchconfig"
             properties="isLaunchableMlm"
@@ -105,7 +105,7 @@
    <extension
          point="org.eclipse.core.expressions.propertyTesters">
       <propertyTester
-            class="arden2bytecodeeclipseplugin.breakpoints.MlmEditorTester"
+            class="arden2bytecodeeclipseplugin.core.MlmEditorTester"
             id="arden2bytecodeeclipseplugin.isMlmEditorTester"
             namespace="arden2bytecodeeclipseplugin.breakpoints"
             properties="isMlmEditor"

@@ -20,10 +20,14 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.debug.core.DebugEvent;
+import org.eclipse.debug.core.DebugPlugin;
+import org.eclipse.debug.core.IDebugEventSetListener;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.core.model.LaunchConfigurationDelegate;
+import org.eclipse.jdt.launching.AbstractJavaLaunchConfigurationDelegate;
 import org.eclipse.jdt.launching.IRuntimeClasspathEntry;
 import org.eclipse.jdt.launching.IVMInstall;
 import org.eclipse.jdt.launching.IVMRunner;
@@ -32,7 +36,7 @@ import org.eclipse.jdt.launching.VMRunnerConfiguration;
 
 import arden2bytecodeeclipseplugin.Activator;
 
-public class Arden2ByteCodeLaunchConfiguration extends LaunchConfigurationDelegate {
+public class Arden2ByteCodeLaunchConfiguration extends AbstractJavaLaunchConfigurationDelegate {
 
 	private String[] computeClasspath(ILaunchConfiguration config) throws CoreException {
 		IRuntimeClasspathEntry[] entries = JavaRuntime
@@ -134,6 +138,10 @@ public class Arden2ByteCodeLaunchConfiguration extends LaunchConfigurationDelega
 
 			IVMInstall defaultVM = JavaRuntime.getDefaultVMInstall();
 			IVMRunner runner = defaultVM.getVMRunner(ILaunchManager.DEBUG_MODE);
+			
+			// add debugeventsetlistener:
+			//DebugPlugin.getDefault().addDebugEventListener(this);
+			
 			if (runner != null) {
 				runner.run(vmConfig, launch, monitor);
 			} else {
@@ -145,5 +153,5 @@ public class Arden2ByteCodeLaunchConfiguration extends LaunchConfigurationDelega
 			throw e;
 		}
 	}
-
+	
 }

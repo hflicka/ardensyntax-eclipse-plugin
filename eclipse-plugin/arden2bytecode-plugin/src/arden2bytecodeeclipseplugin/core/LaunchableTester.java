@@ -1,4 +1,4 @@
-package arden2bytecodeeclipseplugin.launchconfig;
+package arden2bytecodeeclipseplugin.core;
 
 import org.eclipse.core.expressions.PropertyTester;
 import org.eclipse.core.resources.IFile;
