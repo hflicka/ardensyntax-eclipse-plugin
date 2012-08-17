@@ -3,25 +3,108 @@
  */
 package arden.xtext.formatting;
 
+import java.util.List;
+
+import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.formatting.impl.AbstractDeclarativeFormatter;
 import org.eclipse.xtext.formatting.impl.FormattingConfig;
 
+import arden.xtext.services.ArdenSyntaxGrammarAccess;
+
 /**
- * This class contains custom formatting description.
+ * Custom Arden Syntax formatter approach
  * 
- * see : http://www.eclipse.org/Xtext/documentation/latest/xtext.html#formatting
- * on how and when to use it 
+ * xText has its flaws and one of them is described here:
+ * http://www.eclipse.org/forums/index.php/t/266778/
  * 
- * Also see {@link org.eclipse.xtext.xtext.XtextFormattingTokenSerializer} as an example
+ * Thus writing a good formatter for Arden Syntax derived
+ * from the xText AbstractDeclarativeFormatter is simply
+ * not possible. Bad world.
  */
 public class ArdenSyntaxFormatter extends AbstractDeclarativeFormatter {
 	
 	@Override
 	protected void configureFormatting(FormattingConfig c) {
-// It's usually a good idea to activate the following three statements.
-// They will add and preserve newlines around comments
-//		c.setLinewrap(0, 1, 2).before(getGrammarAccess().getSL_COMMENTRule());
-//		c.setLinewrap(0, 1, 2).before(getGrammarAccess().getML_COMMENTRule());
-//		c.setLinewrap(0, 1, 1).after(getGrammarAccess().getML_COMMENTRule());
+		ArdenSyntaxGrammarAccess grammar = (ArdenSyntaxGrammarAccess)getGrammarAccess();
+		
+		
+		c.setLinewrap(0, 1, 2).before(grammar.getML_COMMENTRule());
+		c.setLinewrap(0, 1, 1).after(grammar.getML_COMMENTRule());
+		
+		List<Keyword> categories = grammar.findKeywords(new String[]{
+			"maintenance:",
+			"library:",
+			"knowledge:",
+			"end:"
+		});
+		
+		Keyword last = null;
+		for (Keyword kw : categories) {
+			c.setLinewrap().after(kw);
+			if (last != null) {
+				c.setLinewrap(2).before(kw);
+				//c.setIndentationDecrement().before(kw);
+			}
+			c.setIndentationIncrement().after(kw);
+			last = kw;
+		}
+
+		List<Keyword> indentation_decrement = grammar.findKeywords(new String[]{
+			"validation:",
+			"links:",
+			"citations:",
+			"keywords:",
+			"urgency:"
+		});
+		
+		for (Keyword kw : indentation_decrement) {
+			c.setIndentationDecrement().after(kw);
+		}
+		
+		List<Keyword> slots = grammar.findKeywords(new String[]{
+			"title:",
+			"mlmname:",
+			"filename:",
+			"arden:",
+			"version:",
+			"institution:",
+			"author:",
+			"specialist:",
+			"date:",
+			"validation:",
+			
+			"purpose:",
+			"explanation:",
+			"keywords:",
+			"citations:",
+			"links:",
+			
+			"type:",
+			"data:",
+			"priority:",
+			"evoke:",
+			"logic:",
+			"action:",
+			"urgency:"
+		});
+		
+		for (Keyword kw : slots) {
+			c.setLinewrap().before(kw);
+			c.setSpace(" ").after(kw);
+		}
+		
+		List<Keyword> knowledge_slots = grammar.findKeywords(new String[]{
+			"type:",
+			"data:",
+			"priority:",
+			"evoke:",
+			"logic:",
+			"action:",
+			"urgency:"
+		});
+		
+		for (Keyword kw : knowledge_slots) {
+			c.setLinewrap().after(kw);
+		}
 	}
 }
