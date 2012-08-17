@@ -58,7 +58,9 @@ Also it is possible to set line breakpoint markers which
 can be seen in the "Breakpoints" view of Eclipse. Yet they
 are not displayed in the breakpoint ruler but this is 
 generally possible and has been implemented in the 
-"mitra 2" xText-based Eclipse plugin by Jens Pilgrim.
+[mitra 2](http://jpilgrim.github.com/mitra2/) 
+xText-based Eclipse plugin by 
+[Jens Pilgrim](http://jevopisdeveloperblog.blogspot.de/).
 
 The missing functionality as far as I have understood the
 Eclipse debug model, is to pass the breakpoints to the
@@ -67,3 +69,4 @@ quite complex and I've seen better documentation than that
 available. Therefore I checked out the eclipse.jdt.debug
 and eclipse.jdt.core source code in order to understand
 how breakpoints are handled in the JDT.
+
