@@ -1,9 +1,11 @@
-# Arden Syntax Eclipse Editor
+Arden Syntax Eclipse Editor
+===========================
 
-## Overview
+Overview
+--------
 
 This repository contains multiple Eclipse plugins which 
-together form the Arden Syntax Eclipse Plugin.
+together form the **Arden Syntax Editor** Eclipse feature.
 
 These are:
 
@@ -29,7 +31,17 @@ http://arden2bytecode.sf.net/ such that the plugin can be
 installed into running Eclipse installations via the
 update functionality of Eclipse.
 
-## Build Instructions
+More information about the different Eclipse projects can be
+found in the README.md files of the respective 
+subdirectories. These are:
+
+* `eclipse-plugin\arden2bytecode-compiler\README.md`
+* `eclipse-plugin\arden2bytecode-plugin\README.md`
+* `eclipse-plugin\update-site\README.md`
+
+
+Build Instructions
+------------------
 
 To build this bundle of plugins follow these steps:
 
@@ -45,8 +57,4 @@ To build this bundle of plugins follow these steps:
 
 For more details on building the distinct projects have a look
 at the README.md files in the respective project 
-subdirectories. These are:
-
-* `eclipse-plugin\arden2bytecode-compiler\README.md`
-* `eclipse-plugin\arden2bytecode-plugin\README.md`
-* `eclipse-plugin\update-site\README.md`
+subdirectories.

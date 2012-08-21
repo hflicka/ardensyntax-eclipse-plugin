@@ -1,6 +1,8 @@
-# Arden Syntax Editor Update Site
+Arden Syntax Editor Update Site
+===============================
 
-## Building the Update Site
+Building the Update Site
+------------------------
 
 I usually built this Update Site with the Eclipse 
 PDE (Plugin Development Tools) having xText installed.  

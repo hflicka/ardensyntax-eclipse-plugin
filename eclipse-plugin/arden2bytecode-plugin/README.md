@@ -1,6 +1,8 @@
-# Eclipse Plugin "arden2bytecodeeclipseplugin"
+Eclipse Plugin "arden2bytecodeeclipseplugin"
+============================================
 
-### Overview
+Overview
+--------
 
 This Plugin contains classes that implement starting MLMs 
 (Medical Logic Modules) via the Run/Debug buttons of Eclipse.
@@ -36,7 +38,8 @@ of breakpoints but this functionality is not fully
 implemented yet. Details on the status and goal of this
 feature are given below.
   
-## Roadmap
+Roadmap
+-------
 
 By now, the arden2bytecodeeclipseplugin is able to launch 
 an MLM out of the Editor or out of a file in a project.
