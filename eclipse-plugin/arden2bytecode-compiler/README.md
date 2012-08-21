@@ -30,7 +30,8 @@ JewelCli dependency
 -------------------
 
 Note that you should place a compiled version of 
-JewelCli (Version 0.6) into the directory jewelcli.
+[JewelCli (Version 0.6)](http://sourceforge.net/projects/jewelcli/files/jewelcli/0.6/) 
+into the directory jewelcli.
 
 After doing that, the following files should be present 
 (relative to the directory containing this readme):
