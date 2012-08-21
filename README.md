@@ -31,14 +31,24 @@ update functionality of Eclipse.
 
 ## Build Instructions
 
-To build this bundle of plugins, import all projects into an 
-Eclipse IDE with xText Plugin installed, then generate the 
-language artifacts of arden.xtext. 
+To build this bundle of plugins follow these steps:
 
-For the arden2bytecode-compiler plugin, you need to place a 
-compiled version of JewelCli 0.6 into the root directory of the 
-project.  
-Details are mentioned in:  
-eclipse-plugin/arden2bytecode-compiler/README.md
+* Import all projects into an 
+  Eclipse IDE with xText Plugin installed, then generate the 
+  language artifacts of arden.xtext. 
 
-Finally build the plugins, the feature and the update site.
+* For the arden2bytecode-compiler plugin, you need to place a 
+  compiled version of JewelCli 0.6 into the root directory of the 
+  project.  
+  Details are mentioned in:  
+  `eclipse-plugin/arden2bytecode-compiler/README.md`
+
+*  Finally build the plugins, the feature and the update site.
+
+For more details on building the distinct projects have a look
+at the README.md files in the respective project 
+subdirectories. These are:
+
+* `eclipse-plugin\arden2bytecode-compiler\README.md`
+* `eclipse-plugin\arden2bytecode-plugin\README.md`
+* `eclipse-plugin\update-site\README.md`
