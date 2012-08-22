@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %Bundle-Name
 Bundle-Vendor: %Bundle-Vendor
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.3.qualifier
 Bundle-SymbolicName: arden.xtext; singleton:=true
 Require-Bundle: org.eclipse.xtext;bundle-version="2.1.0";visibility:=reexport,
  org.eclipse.xtext.xbase;bundle-version="2.1.0";resolution:=optional;visibility:=reexport,
@@ -22,7 +22,8 @@ Import-Package: org.apache.commons.logging,
  org.eclipse.xtext.xbase.lib,
  org.eclipse.xtext.xtend2.lib,
  org.eclipse.xtend2.lib
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6,
+ JavaSE-1.7
 Export-Package: arden.xtext,
  arden.xtext.ardenSyntax,
  arden.xtext.ardenSyntax.impl,
