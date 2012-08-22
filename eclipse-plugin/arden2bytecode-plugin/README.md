@@ -73,3 +73,8 @@ available. Therefore I checked out the eclipse.jdt.debug
 and eclipse.jdt.core source code in order to understand
 how breakpoints are handled in the JDT.
 
+So to put it short, todos are:
+
+* Implement displaying of breakpoints in the breakpoint ruler
+* Implement stopping on breakpoints
+* Implement stepping features of the debugger (step over, step into...)
