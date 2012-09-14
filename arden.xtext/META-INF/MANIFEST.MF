@@ -22,8 +22,7 @@ Import-Package: org.apache.commons.logging,
  org.eclipse.xtext.xbase.lib,
  org.eclipse.xtext.xtend2.lib,
  org.eclipse.xtend2.lib
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6,
- JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6,JavaSE-1.7
 Export-Package: arden.xtext,
  arden.xtext.ardenSyntax,
  arden.xtext.ardenSyntax.impl,
