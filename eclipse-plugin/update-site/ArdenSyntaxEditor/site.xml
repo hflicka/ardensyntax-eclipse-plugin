@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/ArdenSyntaxEditor_1.0.2.201208221828.jar" id="ArdenSyntaxEditor" version="1.0.2.201208221828">
+   <feature url="features/ArdenSyntaxEditor_1.0.2.201209141512.jar" id="ArdenSyntaxEditor" version="1.0.2.201209141512">
       <category name="ArdenSyntaxTools"/>
    </feature>
    <category-def name="ArdenSyntaxTools" label="Arden Syntax Tools"/>
