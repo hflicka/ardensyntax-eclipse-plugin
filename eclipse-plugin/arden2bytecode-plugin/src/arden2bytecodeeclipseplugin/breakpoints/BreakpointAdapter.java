@@ -11,8 +11,6 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.texteditor.ITextEditor;
 
-import arden2bytecodeeclipseplugin.Activator;
-
 public class BreakpointAdapter implements
 		IToggleBreakpointsTarget {
 

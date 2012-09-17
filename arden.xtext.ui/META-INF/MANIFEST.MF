@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %Bundle-Name
 Bundle-Vendor: %Bundle-Vendor
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.3.qualifier
 Bundle-SymbolicName: arden.xtext.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: arden.xtext;visibility:=reexport,
@@ -18,7 +18,7 @@ Require-Bundle: arden.xtext;visibility:=reexport,
  org.eclipse.compare
 Import-Package: org.apache.log4j,
  org.apache.commons.logging
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6,JavaSE-1.7
 Export-Package: arden.xtext.ui.contentassist.antlr,
  arden.xtext.ui.internal,
  arden.xtext.ui.contentassist

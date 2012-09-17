@@ -77,7 +77,7 @@
       <breakpoint
             class="arden2bytecodeeclipseplugin.breakpoints.ArdenSyntaxLineBreakpoint"
             id="arden2bytecodeeclipseplugin.lineBreakpoint"
-            markerType="arden2bytecodeeclipseplugin.lineBreakpoint.marker">
+            markerType="lineBreakpoint.marker">
       </breakpoint>
    </extension>
    <extension

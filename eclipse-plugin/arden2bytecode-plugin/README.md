@@ -1,6 +1,8 @@
-# Eclipse Plugin "arden2bytecodeeclipseplugin"
+Eclipse Plugin "arden2bytecodeeclipseplugin"
+============================================
 
-### Overview
+Overview
+--------
 
 This Plugin contains classes that implement starting MLMs 
 (Medical Logic Modules) via the Run/Debug buttons of Eclipse.
@@ -36,7 +38,8 @@ of breakpoints but this functionality is not fully
 implemented yet. Details on the status and goal of this
 feature are given below.
   
-## Roadmap
+Roadmap
+-------
 
 By now, the arden2bytecodeeclipseplugin is able to launch 
 an MLM out of the Editor or out of a file in a project.
@@ -58,7 +61,9 @@ Also it is possible to set line breakpoint markers which
 can be seen in the "Breakpoints" view of Eclipse. Yet they
 are not displayed in the breakpoint ruler but this is 
 generally possible and has been implemented in the 
-"mitra 2" xText-based Eclipse plugin by Jens Pilgrim.
+[mitra 2](http://jpilgrim.github.com/mitra2/) 
+xText-based Eclipse plugin by 
+[Jens Pilgrim](http://jevopisdeveloperblog.blogspot.de/).
 
 The missing functionality as far as I have understood the
 Eclipse debug model, is to pass the breakpoints to the
@@ -67,3 +72,9 @@ quite complex and I've seen better documentation than that
 available. Therefore I checked out the eclipse.jdt.debug
 and eclipse.jdt.core source code in order to understand
 how breakpoints are handled in the JDT.
+
+So to put it short, todos are:
+
+* Implement displaying of breakpoints in the breakpoint ruler
+* Implement stopping on breakpoints
+* Implement stepping features of the debugger (step over, step into...)

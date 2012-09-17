@@ -1,11 +1,11 @@
 <project name="mirrorsite" default="mirror">
 	<target name="mirror">
-		<p2.mirror ignoreErrors="true" log="C:/_dev/ardensyntax-eclipse-plugin/eclipse-plugin/update-site/mirrorlog.txt">
+		<p2.mirror ignoreErrors="true" log="C:/Users/flicka/Documents/ardensyntax-eclipse-plugin/eclipse-plugin/update-site/mirrorlog.txt">
 			<source>
-				<repository location="file:C:/_dev/ardensyntax-eclipse-plugin/eclipse-plugin/update-site/ArdenSyntaxEditor" />
+				<repository location="file:C:/Users/flicka/Documents/ardensyntax-eclipse-plugin/eclipse-plugin/update-site/ArdenSyntaxEditor" />
 			</source>
-			<destination kind="artifact" compressed="true" name="Arden2ByteCode Update Site" location="file:C:/_dev/ardensyntax-eclipse-plugin-update-site/update/ArdenSyntaxEditor" append="true" />
-			<destination kind="metadata" compressed="true" name="Arden2ByteCode Update Site" location="file:C:/_dev/ardensyntax-eclipse-plugin-update-site/update/ArdenSyntaxEditor" append="true" />
+			<destination kind="artifact" compressed="true" name="Arden2ByteCode Update Site" location="file:C:/Users/flicka/Documents/ardensyntax-eclipse-plugin-update-site/update/ArdenSyntaxEditor" append="true" />
+			<destination kind="metadata" compressed="true" name="Arden2ByteCode Update Site" location="file:C:/Users/flicka/Documents/ardensyntax-eclipse-plugin-update-site/update/ArdenSyntaxEditor" append="true" />
 			<iu id="ArdenSyntaxEditor.feature.group" version="" />
 			<iu id="ArdenSyntaxTools" version="" />
 			<slicingOptions latestVersionOnly="true" includeNonGreedy="false" includeOptional="false" followStrict="false" />
