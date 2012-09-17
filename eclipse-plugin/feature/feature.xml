@@ -5,8 +5,7 @@
       version="1.0.2.qualifier">
 
    <description url="http://arden2bytecode.sf.net">
-      This is an Arden Syntax Editor as an Eclipse Plugin. You can
-use it in conjunction with Arden2ByteCode.
+      This is an Arden Syntax Editor as an Eclipse Plugin. You can use it in conjunction with Arden2ByteCode.
    </description>
 
    <copyright url="http://arden2bytecode.sf.net">
