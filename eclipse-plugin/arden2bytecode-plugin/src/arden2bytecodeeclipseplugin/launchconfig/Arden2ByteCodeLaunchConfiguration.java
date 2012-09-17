@@ -20,13 +20,8 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.debug.core.DebugEvent;
-import org.eclipse.debug.core.DebugPlugin;
-import org.eclipse.debug.core.IDebugEventSetListener;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
-import org.eclipse.debug.core.ILaunchManager;
-import org.eclipse.debug.core.model.LaunchConfigurationDelegate;
 import org.eclipse.jdt.launching.AbstractJavaLaunchConfigurationDelegate;
 import org.eclipse.jdt.launching.IRuntimeClasspathEntry;
 import org.eclipse.jdt.launching.IVMInstall;
@@ -137,7 +132,7 @@ public class Arden2ByteCodeLaunchConfiguration extends AbstractJavaLaunchConfigu
 			monitor.worked(1);
 
 			IVMInstall defaultVM = JavaRuntime.getDefaultVMInstall();
-			IVMRunner runner = defaultVM.getVMRunner(ILaunchManager.DEBUG_MODE);
+			IVMRunner runner = defaultVM.getVMRunner(mode);
 			
 			// add debugeventsetlistener:
 			//DebugPlugin.getDefault().addDebugEventListener(this);
