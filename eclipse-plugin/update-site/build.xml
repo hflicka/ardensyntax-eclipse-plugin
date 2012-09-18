@@ -1,14 +1,41 @@
 <project name="mirrorsite" default="mirror">
-	<target name="mirror">
-		<p2.mirror ignoreErrors="true" log="C:/Users/flicka/Documents/ardensyntax-eclipse-plugin/eclipse-plugin/update-site/mirrorlog.txt">
+	<target name="init">
+		 <dirname
+		    property="mirrorsite.basedir"
+		    file="${ant.file.mirrorsite}" />		
+		<property name="srcdir" value="${mirrorsite.basedir}" />
+		
+		<path id="srcpath">
+			<pathelement location="${srcdir}" />
+		</path>
+		
+		<pathconvert targetos="unix" property="srcdir.url" refid="srcpath"/>
+		
+		<property name="destdir.rel" value="${srcdir.url}/../../../ardensyntax-eclipse-plugin-update-site/update/ArdenSyntaxEditor" />
+		<property name="destdir" location="${destdir.rel}" />
+		
+		<path id="destpath">
+			<pathelement location="${destdir}" />
+		</path>
+		
+		<pathconvert targetos="unix" property="destdir.url" refid="destpath"/>
+	</target>
+	
+	<target name="mirror" depends="init">
+		<echo message="${srcdir}" />
+		<echo message="${srcdir.url}" />
+		<echo message="${destdir}" />
+		<echo message="${destdir.url}" />
+		<p2.mirror ignoreErrors="true" log="${srcdir}/mirrorlog.txt">
 			<source>
-				<repository location="file:C:/Users/flicka/Documents/ardensyntax-eclipse-plugin/eclipse-plugin/update-site/ArdenSyntaxEditor" />
+				<repository location="file:${srcdir.url}/ArdenSyntaxEditor" />
 			</source>
-			<destination kind="artifact" compressed="true" name="Arden2ByteCode Update Site" location="file:C:/Users/flicka/Documents/ardensyntax-eclipse-plugin-update-site/update/ArdenSyntaxEditor" append="true" />
-			<destination kind="metadata" compressed="true" name="Arden2ByteCode Update Site" location="file:C:/Users/flicka/Documents/ardensyntax-eclipse-plugin-update-site/update/ArdenSyntaxEditor" append="true" />
+			<destination kind="artifact" compressed="true" name="Arden2ByteCode Update Site" location="file:${destdir.url}" append="true" />
+			<destination kind="metadata" compressed="true" name="Arden2ByteCode Update Site" location="file:${destdir.url}" append="true" />
 			<iu id="ArdenSyntaxEditor.feature.group" version="" />
 			<iu id="ArdenSyntaxTools" version="" />
 			<slicingOptions latestVersionOnly="true" includeNonGreedy="false" includeOptional="false" followStrict="false" />
 		</p2.mirror>
+		<copy file="${srcdir.url}/ArdenSyntaxEditor/site.xml" tofile="${destdir.url}/site.xml" />
 	</target>
 </project>
