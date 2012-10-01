@@ -61,17 +61,24 @@ Workflow {
             }
 
             // The antlr parser generator fragment.
-            fragment = parser.antlr.XtextAntlrGeneratorFragment {
+            //fragment = parser.antlr.XtextAntlrGeneratorFragment {
             //  options = {
             //      backtrack = true
             //  }
-            	options = {
-            		classSplitting = true            		
-            	}
-            }
+            //	options = {
+            //		classSplitting = true   
+            //		ignoreCase = true         		
+            //	}
+            //}
+            
+            fragment = parser.antlr.ex.rt.AntlrGeneratorFragment {
+				options = {
+					ignoreCase = true
+					classSplitting = true
+				}
+			}
             
             fragment = parser.antlr.DebugAntlrGeneratorFragment {
-            	
             }
 
             // java-based API for validation
@@ -85,14 +92,16 @@ Workflow {
             // fragment = exporting.SimpleNamesFragment {}
 
             // scoping and exporting API
-            fragment = scoping.ImportNamespacesScopingFragment {}
+            fragment = scoping.ImportNamespacesScopingFragment {
+            	
+            }
             fragment = exporting.QualifiedNamesFragment {}
             fragment = builder.BuilderIntegrationFragment {}
 
             // generator API
             fragment = generator.GeneratorFragment {
                 generateMwe = false
-                generateJavaMain = false
+                generateJavaMain = false                
             }
 
             // formatter API
@@ -112,10 +121,17 @@ Workflow {
             fragment = contentAssist.JavaBasedContentAssistFragment {}
 
             // generates a more lightweight Antlr parser and lexer tailored for content assist
-            fragment = parser.antlr.XtextAntlrUiGeneratorFragment {
+            //fragment = parser.antlr.XtextAntlrUiGeneratorFragment {
             	
+            //	options = {
+            //		classSplitting = true            		
+            //		ignoreCase = true
+            //	}
+            //}
+            fragment = parser.antlr.ex.ca.ContentAssistParserGeneratorFragment {
             	options = {
-            		classSplitting = true            		
+            		classSplitting = true
+            		ignoreCase = true
             	}
             }
 

@@ -34,4 +34,5 @@ Export-Package: arden.xtext,
  arden.xtext.scoping,
  arden.xtext.serializer,
  arden.xtext.services,
- arden.xtext.validation
+ arden.xtext.validation,
+ arden.xtext.parser.antlr.lexer
